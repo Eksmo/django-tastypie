@@ -15,7 +15,7 @@ try:
     from django.db.models.fields.related import ReverseOneToOneDescriptor
 except ImportError:
     # pre Django 1.9
-    from django.db.models.fields.related import SingleRelatedObjectDescriptor
+    from django.db.models.fields.related import SingleRelatedObjectDescriptor as ReverseOneToOneDescriptor
 from django.utils import datetime_safe
 from django.utils import six
 
@@ -768,7 +768,7 @@ class ToOneField(RelatedField):
         if value is None:
             return value
 
-        if bundle.obj and isinstance(getattr(bundle.obj.__class__, self.attribute), SingleRelatedObjectDescriptor):
+        if bundle.obj and isinstance(getattr(bundle.obj.__class__, self.attribute), ReverseOneToOneDescriptor):
             # This is the case when we are writing to a reverse one to one field.
             # Enable related name to make this work fantastically.
             # see https://code.djangoproject.com/ticket/18638 (bug; closed; worksforme)
