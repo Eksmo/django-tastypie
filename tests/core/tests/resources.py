@@ -846,6 +846,7 @@ class NoteResource(ModelResource):
         authorization = Authorization()
         filtering = {
             'content': ['startswith', 'exact'],
+            'created': ALL,
             'title': ALL,
             'slug': ['exact'],
         }
@@ -3387,6 +3388,7 @@ class ModelResourceTestCase(TestCase):
             "filtering": {
                 "content": ["startswith", "exact"],
                 "slug": ["exact"],
+                "created": 1,
                 "title": 1
             },
             "ordering": ["title", "slug", "resource_uri"],
