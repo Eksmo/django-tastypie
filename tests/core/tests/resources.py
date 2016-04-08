@@ -3,6 +3,8 @@ import copy
 import datetime
 from decimal import Decimal
 import json
+
+import django
 from mock import patch, Mock
 import time
 from unittest import skipIf
@@ -4277,10 +4279,18 @@ class ModelResourceTestCase(TestCase):
             'title': "Foo",
         })
 
-        with self.assertRaises(ValueError):
-            # This is where things blow up, because you can't assign
-            # ``None`` to a required FK.
+        if django.VERSION >= (1, 10):
             hydrated1 = nmbr.full_hydrate(bundle_1)
+            self.assertEqual(hydrated1.obj.title, "Foo")
+            try:
+                self.assertEqual(hydrated1.obj.note, None)
+            except ObjectDoesNotExist:
+                pass
+        else:
+            with self.assertRaises(ValueError):
+                # This is where things blow up, because you can't assign
+                # ``None`` to a required FK.
+                hydrated1 = nmbr.full_hydrate(bundle_1)
 
         # So we introduced ``blank=True``.
         bmbr = BlankMediaBitResource()
