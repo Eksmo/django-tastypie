@@ -1,11 +1,13 @@
 from __future__ import print_function
 from __future__ import unicode_literals
-from django.core.management.base import NoArgsCommand
+
+from django.core.management import BaseCommand
+
 from tastypie.compat import get_user_model
 from tastypie.models import ApiKey
 
 
-class Command(NoArgsCommand):
+class Command(BaseCommand):
     help = "Goes through all users and adds API keys for any that don't have one."
 
     def handle_noargs(self, **options):

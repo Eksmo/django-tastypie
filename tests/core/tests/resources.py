@@ -10,7 +10,7 @@ from unittest import skipIf
 from django import forms
 from django.contrib.auth.models import User
 from django.core.cache import cache
-from django.core.exceptions import FieldError, MultipleObjectsReturned
+from django.core.exceptions import FieldError, MultipleObjectsReturned, ObjectDoesNotExist
 from django.core import mail
 from django.core.urlresolvers import reverse
 from django.http import HttpRequest, QueryDict, Http404
