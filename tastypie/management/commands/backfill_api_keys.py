@@ -10,7 +10,7 @@ from tastypie.models import ApiKey
 class Command(BaseCommand):
     help = "Goes through all users and adds API keys for any that don't have one."
 
-    def handle_noargs(self, **options):
+    def handle(self, **options):
         "Goes through all users and adds API keys for any that don't have one."
         self.verbosity = int(options.get('verbosity', 1))
 
